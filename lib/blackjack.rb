@@ -52,6 +52,17 @@ def hit?(cards_total)
     hit?(cards_total)
   end 
   
+
+def hit?(cards_total)
+  prompt_user
+  user_input = get_user_input
+  if user_input == 'h'
+  end 
+    
+end
+
+def invalid_command
+  puts "Please enter a valid command"
 end
 
 
@@ -61,12 +72,5 @@ end
 #####################################################
 
 def runner
-  welcome
-  cards_sum = initial_round
-  until cards_sum > 21 do
-    cards_sum = hit?(cards_sum)
-  end 
-  display_card_total(cards_sum)
-  end_game(cards_sum)
+
 end
-    
