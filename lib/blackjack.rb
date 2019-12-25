@@ -1,72 +1,68 @@
+
+def deal_card
+  rand(1..11)
+end
+
+def display_card_total(card_total)
+  puts "Your cards add up to #{card_total}"
+end
+
 def welcome
   puts "Welcome to the Blackjack Table"
 end
 
-def deal_card
-  card = 0
-  while card == 0 do
-    card = rand(12)
-  end
-  card
-end
-
-def display_card_total(cards_total)
-  puts "Your cards add up to #{cards_total}"
-end
 
 def prompt_user
   puts "Type 'h' to hit or 's' to stay"
 end
 
-def get_user_input
-  gets.chomp
-end
-
-def end_game(cards_total)
-  #"Sorry, you hit 27. Thanks for playing!"
-  puts "Sorry, you hit #{cards_total}. Thanks for playing!"
-end
 
 def initial_round
-  card_one = deal_card
-  card_two = deal_card
-  initial_cards = card_one + card_two
-  display_card_total(initial_cards)
-  initial_cards
+  first_round = deal_card + deal_card
+  display_card_total(first_round)
+  return first_round
+end
+
+def get_user_input
+  gets.chomp.strip
+end
+
+def end_game(card_total)
+  puts "Sorry, you hit #{card_total}. Thanks for playing!"
+end
+
+
+
+def hit?(card_total)
+
+  prompt_user
+  user_input = get_user_input
+
+  if user_input == "h"
+    card_total += deal_card
+  elsif user_input == "s"
+    card_total
+  else
+    invalid_command
+    hit?(card_total)
+  end
+  
 end
 
 def invalid_command
   puts "Please enter a valid command"
 end
 
-def hit?(cards_total)
-  prompt_user
-  user_input = get_user_input
-  if user_input == "h"
-    cards_total += deal_card
-    return cards_total
-  elsif user_input == "s"
-    return cards_total
-  else
-    invalid_command
-    hit?(cards_total)
-  end 
-  
-end
-
-
-
-#####################################################
-# get every test to pass before coding runner below #
-#####################################################
+##########
+# runner #
+##########
 
 def runner
   welcome
-  cards_sum = initial_round
-  until cards_sum > 21 do
-    cards_sum = hit?(cards_sum)
-  end 
-  display_card_total(cards_sum)
-  end_game(cards_sum)
+  card_total = initial_round
+  until card_total > 21
+    card_total = hit?(card_total)
+    display_card_total(card_total)
+  end
+  end_game(card_total)
 end
-    
